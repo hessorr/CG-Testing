@@ -15,7 +15,7 @@ for (i in 2:3) {
   for (j in 1:30) {
     # for sample size 200 and 2000
     for (z in c(200, 2000)) {
-        # for degree 2, set the correct file path
+        # for degree i, set the correct file path
         csv_file_path <- paste0("C:/Users/hessor/Documents/pcgaussiantesting/CG-Testing/cg_", i,"_50/cg50_", i,"_", j, ".csv")
         
         # Read the CSV file into a data frame
