@@ -2,8 +2,8 @@ library(readr)
 library(lcd)
 
 
-writeResults <- function(pat, name){
-  colnames(pat)<-rownames(pat)<-paste("v",1:50,sep = "")
+writeResults <- function(adj, name){
+  colnames(pat)<-rownames(adj)<-paste("v",1:50,sep = "")
   write.csv(pat,file=name,row.names=FALSE)
 }
 
@@ -15,44 +15,22 @@ for (i in 2:3) {
   for (j in 1:30) {
     # for sample size 200 and 2000
     for (z in c(200, 2000)) {
-      if (i == 2) {
         # for degree 2, set the correct file path
-        csv_file_path <- paste0("C:/Users/hessor/Documents/pcgaussiantesting/CG-Testing/cg_2_50/cg50_2_", j, ".csv")
+        csv_file_path <- paste0("C:/Users/hessor/Documents/pcgaussiantesting/CG-Testing/cg_", i,"_50/cg50_", i,"_", j, ".csv")
         
         # Read the CSV file into a data frame
         df <- read_csv(csv_file_path)
         
         # Convert the data frame to a matrix
         toy.graph <- as.matrix(df)
-        tgdata <- rnorm.cg(200, adj_matrix, get.normal.dist(adj_matrix))
-        print(class(tgdata))
-        print(class(adj_matrix))
+        tgdata <- rnorm.cg(z, adj_matrix, get.normal.dist(adj_matrix))
         
         # Declare name of file
-        name <- paste0("C:/Users/hessor/Documents/pcgaussiantesting/CG-Testing/cg_2_50/cg50_2_", j, "_data.csv")
+        name <- paste0("C:/Users/hessor/Documents/pcgaussiantesting/CG-Testing/cg_", i,"_50/cg50_", i,"_", j, "_data.csv")
         
         # send info to write results
-        writeResults(pat, name)
+        writeResults(tgdata, name)
         
-      } else if (i == 3) {
-        # for degree 2, set the correct file path
-        csv_file_path <- paste0("C:/Users/hessor/Documents/pcgaussiantesting/CG-Testing/cg_3_50/cg50_3_", j, ".csv")
-        
-        # Read the CSV file into a data frame
-        df <- read_csv(csv_file_path)
-        
-        # Convert the data frame to a matrix
-        toy.graph <- as.matrix(df)
-        
-        # Get the pattern of the adj matrix
-        pat <- pattern(adj_matrix)
-        
-        # Declare name of file
-        name <- paste0("C:/Users/hessor/Documents/pcgaussiantesting/CG-Testing/cg_3_50/cg50_3_", j, "_data.csv")
-        
-        # send info to write results
-        writeResults(pat, name) 
-      }
     }
   }
 }
