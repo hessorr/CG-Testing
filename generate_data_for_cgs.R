@@ -30,7 +30,6 @@ for (i in 2:3) {
         
         # send info to write results
         writeResults(tgdata, name)
-        
     }
   }
 }
