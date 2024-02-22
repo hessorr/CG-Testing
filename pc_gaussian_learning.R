@@ -5,10 +5,28 @@ writeResults <- function(adj, name){
   colnames(pat)<-rownames(adj)<-paste("v",1:50,sep = "")
   write.csv(pat,file=name,row.names=FALSE)
 }
-
-addToDF <- function() {
+#  Function to calculate preformance metrics
+calculateScores <- function(true, learned) {
+  # compare the learned pattern to the true pattern
+  comp.pat(cgpat, tg.pat)
   
+  scores <- c(TPR, TDR, FPR, ACC, SHD)
+  
+  return(scores)
 }
+
+# data frame to add rows to
+truthScores <- data.frame(
+  name = character(),
+  pval = numeric(), 
+  samplesize = integer(),  
+  degree = integer(), 
+  TPR = numeric(),  
+  TDR = numeric(),  
+  FPR = numeric(),  
+  ACC = numeric(),  
+  SHD = numeric()
+)
 
 for (i in 2:3) {
   for (j in 1:30) {
@@ -24,7 +42,7 @@ for (i in 2:3) {
         pattern_df <- read_csv(pattern_csv_file_path)
         # Convert the data frames to a matrix
         tgdata <- as.matrix(data_df)
-        cgpat <- as.matrix(data_df)
+        cgpat <- as.matrix(pattern_df)
         
         # generate the undirected graph (independence graph)
         tgug <- naive.getug.norm(tgdata, p)
@@ -32,8 +50,9 @@ for (i in 2:3) {
         tg.jtree <- ug.to.jtree(tgug)
         # get the pattern from the junction tree
         tg.pat <- learn.mec.norm(tg.jtree, cov(tgdata), n, p, "CG")
-        # compare the learned pattern to the true pattern
-        comp.pat(cgpat, tg.pat)
+        
+        scores <- calculateScores(cgpat, tg.pat)
+        
       }
     }
   }
