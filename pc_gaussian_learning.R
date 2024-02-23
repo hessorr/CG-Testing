@@ -1,22 +1,13 @@
 library(readr)
-library(lcd)
+library(cglearn)
 
-writeResults <- function(adj, name){
-  colnames(pat)<-rownames(adj)<-paste("v",1:50,sep = "")
-  write.csv(pat,file=name,row.names=FALSE)
-}
-#  Function to calculate preformance metrics
-calculateScores <- function(true, learned) {
-  # compare the learned pattern to the true pattern
-  comp.pat(cgpat, tg.pat)
-  
-  scores <- c(TPR, TDR, FPR, ACC, SHD)
-  
-  return(scores)
+writeResults <- function(adj){
+  # colnames(adj)<-rownames(adj)<-paste("v",1:50,sep = "")
+  write.csv(adj,file="r_learned_cg_metrics.csv",row.names=FALSE)
 }
 
 # data frame to add rows to
-truthScores <- data.frame(
+rLearnedScores <- data.frame(
   name = character(),
   pval = numeric(), 
   samplesize = integer(),  
@@ -43,15 +34,18 @@ for (i in 2:3) {
         # Convert the data frames to a matrix
         tgdata <- as.matrix(data_df)
         cgpat <- as.matrix(pattern_df)
-        
         # generate the undirected graph (independence graph)
         tgug <- naive.getug.norm(tgdata, p)
         # triangulate the ug and then create the junction tree
         tg.jtree <- ug.to.jtree(tgug)
         # get the pattern from the junction tree
         tg.pat <- learn.mec.norm(tg.jtree, cov(tgdata), n, p, "CG")
-        
-        scores <- calculateScores(cgpat, tg.pat)
+        # set the name of the cg
+        name <- paste0("cg50_", i,"_", j)
+        # get the metrics for the preformance of the learned cg
+        scores <- comp.cgs(pattern(toy.graph), tg.pat)
+        # add the metrics to the scores data frame
+        rLearnedScores[nrow(rLearnedScores) + 1,] = c(name, p, n, i, scores['TPR'], scores['TDR'], scores['FPR'],scores['ACC'], scores['SHD'])
         
       }
     }

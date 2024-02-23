@@ -1,5 +1,5 @@
 library(readr)
-library(lcd)
+library(cglearn)
 
 writeResults <- function(pat, name){
   colnames(pat)<-rownames(pat)<-paste("v",1:50,sep = "")
