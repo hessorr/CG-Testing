@@ -37,7 +37,7 @@ for (i in 2:3) {
         tg.pat <- learn.mec.norm(tg.jtree, cov(tgdata), n, p, "CG")
         # set the name of the cg
         name <- paste0("cg50_", i,"_", j)
-        # change the cgs column names to match the data's column names
+        # change the cgs column names to match the data's column names, and insert rownames so it plays nice with tg.pat format
         colnames(cgpat) <- as.character(1:50)
         rownames(cgpat) <- as.character(1:50)
         # get the metrics for the performance of the learned cg
