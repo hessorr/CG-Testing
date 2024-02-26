@@ -46,8 +46,10 @@ for (i in 2:3) {
         scores <- comp.cgs(pattern(toy.graph), tg.pat)
         # add the metrics to the scores data frame
         rLearnedScores[nrow(rLearnedScores) + 1,] = c(name, p, n, i, scores['TPR'], scores['TDR'], scores['FPR'],scores['ACC'], scores['SHD'])
-        
       }
     }
   }
 }
+
+# after each cg has been learned and the metrics are calculated, save the results into a csv
+writeResults(rLearnedScores)
