@@ -1,11 +1,6 @@
 library(readr)
 library(cglearn)
 
-writeResults <- function(adj){
-  # colnames(adj)<-rownames(adj)<-paste("v",1:50,sep = "")
-  write.csv(adj,file="r_learned_cg_metrics.csv",row.names=FALSE)
-}
-
 # data frame to add rows to
 rLearnedScores <- data.frame(
   name = character(),
@@ -42,8 +37,11 @@ for (i in 2:3) {
         tg.pat <- learn.mec.norm(tg.jtree, cov(tgdata), n, p, "CG")
         # set the name of the cg
         name <- paste0("cg50_", i,"_", j)
-        # get the metrics for the preformance of the learned cg
-        scores <- comp.cgs(pattern(toy.graph), tg.pat)
+        # change the cgs column names to match the data's column names
+        colnames(cgpat) <- as.character(1:50)
+        rownames(cgpat) <- as.character(1:50)
+        # get the metrics for the performance of the learned cg
+        scores <- comp.cgs(cgpat, tg.pat)
         # add the metrics to the scores data frame
         rLearnedScores[nrow(rLearnedScores) + 1,] = c(name, p, n, i, scores['TPR'], scores['TDR'], scores['FPR'],scores['ACC'], scores['SHD'])
       }
@@ -52,4 +50,4 @@ for (i in 2:3) {
 }
 
 # after each cg has been learned and the metrics are calculated, save the results into a csv
-writeResults(rLearnedScores)
+write.csv(rLearnedScores,file="r_learned_cg_metrics.csv",row.names=FALSE)
