@@ -4,6 +4,7 @@ set.seed(100)
 p.value <- .5
 n <- 4000
 is.chaingraph(toy.graph)
+toy.graph <- toy.graph
 tgdata <- rnorm.cg(n, toy.graph, get.normal.dist(toy.graph))
 tgug <- naive.getug.norm(tgdata, p.value)
 tg.jtree <- ug.to.jtree(tgug)
