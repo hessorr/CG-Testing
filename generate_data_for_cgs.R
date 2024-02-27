@@ -26,7 +26,7 @@ for (i in 2:3) {
         tgdata <- rnorm.cg(z, toy.graph, get.normal.dist(toy.graph))
         
         # Declare name of file
-        name <- paste0("C:/Users/hessor/Documents/pcgaussiantesting/CG-Testing/cg_", i,"_50/cg50_", i,"_", j, "_data.csv")
+        name <- paste0("C:/Users/hessor/Documents/pcgaussiantesting/CG-Testing/cg_", i,"_50/cg50_", i,"_", j, "_data_", z,".csv")
         
         # send info to write results
         writeResults(tgdata, name)
