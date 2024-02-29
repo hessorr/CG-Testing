@@ -30,14 +30,14 @@ for (i in 2:3) {
         tgdata <- as.matrix(data_df)
         cgpat <- as.matrix(pattern_df)
         
-        tg.pat <- learn.lwf.norm(tgdata,p,method ="stable",LCG=TRUE)
+        tg.pat <- learn.lwf.norm1(tgdata,p,method ="stable",LCG=FALSE)
         # set the name of the cg
         name <- paste0("cg50_", i,"_", j)
         # change the cgs column names to match the data's column names, and insert rownames so it plays nice with tg.pat format
         colnames(cgpat) <- as.character(1:50)
         rownames(cgpat) <- as.character(1:50)
         # get the metrics for the performance of the learned cg
-        scores <- comp.cgs1(cgpat, tg.pat[['matrix']])
+        scores <- comp.cgs1(cgpat, tg.pat)
         # add the metrics to the scores data frame
         rLearnedScores[nrow(rLearnedScores) + 1,] = c(name, p, n, i, scores['TPR'], scores['TDR'], scores['FPR'],scores['ACC'], scores['SHD'])
       }
