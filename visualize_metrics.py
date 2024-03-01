@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
 def read_csv(file_path:str) -> pd.DataFrame:
     '''
@@ -172,6 +173,45 @@ if __name__ == '__main__':
     cglearn_stable_metrics = read_csv("/Users/Oliviahess/Documents/Programs/Independent Study/CG-Testing/Metrics/r_pc_learned_stable_cg_metrics.csv")
     cglearn_original_metrics = read_csv("/Users/Oliviahess/Documents/Programs/Independent Study/CG-Testing/Metrics/r_pc_learned_original_cg_metrics.csv")
     
-    ten_plots(lcd_metrics, cglearn_stable_metrics, cglearn_original_metrics)
+    # ten_plots(lcd_metrics, cglearn_stable_metrics, cglearn_original_metrics)
     # six_plots(lcd_metrics, cglearn_stable_metrics, cglearn_original_metrics)
     # four_plots(lcd_metrics, cglearn_stable_metrics, cglearn_original_metrics)
+
+    pval05200lcd = lcd_metrics[(lcd_metrics['pval'] == 0.05) & (lcd_metrics['degree'] == 2) & (lcd_metrics['samplesize'] == 200)]
+    pval052000lcd = lcd_metrics[(lcd_metrics['pval'] == 0.05) & (lcd_metrics['degree'] == 2) & (lcd_metrics['samplesize'] == 2000)]
+    pval05200stable = cglearn_stable_metrics[(cglearn_stable_metrics['pval'] == 0.05) & (cglearn_stable_metrics['degree'] == 2) & (cglearn_stable_metrics['samplesize'] == 200)]
+    pval052000stable = cglearn_stable_metrics[(cglearn_stable_metrics['pval'] == 0.05) & (cglearn_stable_metrics['degree'] == 2) & (cglearn_stable_metrics['samplesize'] == 2000)]
+    pval05200original = cglearn_original_metrics[(cglearn_original_metrics['pval'] == 0.05) & (cglearn_original_metrics['degree'] == 2) & (cglearn_original_metrics['samplesize'] == 200)]
+    pval052000original = cglearn_original_metrics[(cglearn_original_metrics['pval'] == 0.05) & (cglearn_original_metrics['degree'] == 2) &  (cglearn_original_metrics['samplesize'] == 2000)]
+    #### pval == 0.005
+    pval005200lcd = lcd_metrics[(lcd_metrics['pval'] == 0.005) & (lcd_metrics['degree'] == 2) & (lcd_metrics['samplesize'] == 200)]
+    pval0052000lcd = lcd_metrics[(lcd_metrics['pval'] == 0.005) & (lcd_metrics['degree'] == 2) & (lcd_metrics['samplesize'] == 2000)]
+    pval005200stable = cglearn_stable_metrics[(cglearn_stable_metrics['pval'] == 0.005) & (cglearn_stable_metrics['degree'] == 2) & (cglearn_stable_metrics['samplesize'] == 200)]
+    pval0052000stable = cglearn_stable_metrics[(cglearn_stable_metrics['pval'] == 0.005) & (cglearn_stable_metrics['degree'] == 2) & (cglearn_stable_metrics['samplesize'] == 2000)]
+    pval005200original = cglearn_original_metrics[(cglearn_original_metrics['pval'] == 0.005) & (cglearn_original_metrics['degree'] == 2) & (cglearn_original_metrics['samplesize'] == 200)]
+    pval0052000original = cglearn_original_metrics[(cglearn_original_metrics['pval'] == 0.005) & (cglearn_original_metrics['degree'] == 2) & (cglearn_original_metrics['samplesize'] == 2000)]
+
+
+
+    for metric in ['TPR', 'TDR', 'FPR', 'ACC', 'SHD']:
+        fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(20, 8))
+        positions = [1, 1.5, 2, 2.5, 3, 3.5]  # Adjust these positions as needed to control spacing
+        bplot1 = ax1.boxplot([pval05200lcd[metric], pval052000lcd[metric], pval05200stable[metric], pval052000stable[metric],  pval05200original[metric],pval052000original[metric]], vert = True, positions=positions , patch_artist=True,labels=['LCD', 'l', 'OPC', 'o', 'SPC', 's'])
+        ax1.set_title('alpha = 0.05')
+        bplot2 = ax2.boxplot([pval005200lcd[metric], pval0052000lcd[metric], pval005200stable[metric], pval0052000stable[metric],  pval005200original[metric],pval0052000original[metric]], vert = True, positions=positions, patch_artist=True,labels=['LCD', 'l', 'OPC', 'o', 'SPC', 's'])
+        ax2.set_title('alpha = 0.005')
+        ax1.set_ylabel(metric)
+
+        # fill with colors
+        colors = ['pink', 'lightblue','pink', 'lightblue','pink', 'lightblue']
+        for bplot in (bplot1, bplot2):
+            for patch, color in zip(bplot['boxes'], colors):
+                patch.set_facecolor(color)
+        ymin, ymax = plt.ylim()  # Get the current y-axis limits
+        lines = np.arange(ymin, ymax, 0.1)  # Create an array of points from ymin to ymax at intervals of 0.1
+        for y in lines:
+            ax1.axhline(y, color='lightgray', linestyle='-', linewidth=0.5)  # Draw light line on ax1
+            ax2.axhline(y, color='lightgray', linestyle='-', linewidth=0.5)  # Draw light line on ax2
+
+        plt.subplots_adjust(hspace=0.7)
+        plt.show()
