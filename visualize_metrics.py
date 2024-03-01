@@ -33,7 +33,7 @@ if __name__ == '__main__':
 
     # plot the TPR, TDR, FPR, ACC, and SHD for each pval and sample size
     #### Initialize the plots
-    fig, ((ax1, ax2), (ax3, ax4), (ax5, ax6), (ax7, ax8), (ax9, ax10)) = plt.subplots(nrows=5, ncols=2, figsize=(25, 8))
+    fig, ((ax1, ax2), (ax3, ax4), (ax5, ax6), (ax7, ax8), (ax9, ax10)) = plt.subplots(nrows=5, ncols=2, figsize=(20, 8))
 
     #### Create the boxplots
         # precision
@@ -73,5 +73,5 @@ if __name__ == '__main__':
         for patch, color in zip(bplot['boxes'], colors):
             patch.set_facecolor(color)
     ax1.legend([bplot1["boxes"][0], bplot1["boxes"][1]], ["200 Samples", "2000 Samples"], loc='lower right')
-    
+    plt.subplots_adjust(hspace=0.7)
     plt.show()
