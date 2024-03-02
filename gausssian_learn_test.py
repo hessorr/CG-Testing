@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 ########################################################################
 # Created by Olivia Hess
 # Last Modified: 2/26/24
@@ -19,31 +20,25 @@ def learn(cg:np.array, cov:float, n:int, p:float) -> dict:
     retVal = comp_pat(get_pattern_matrix(cg), pat)
     return retVal
 
-def add_metrics_to_adj(metrics:dict, adj:np.array) -> np.array:
-    # add metrics to the adjacency matrix
-    # need to set up columns for the metrics
-    # extract the metrics from the dictionary
-    # create new row
-    # then add the new row to the matrix
-    pass
-
 if __name__ == "__main__":
-    
+    pLearnedMetrics = pd.DataFrame(columns=['name', 'pval', 'samplesize', 'degree', 'TPR', 'TDR', 'FPR', 'ACC', 'SHD'])
     # learn the pattern
     for i in range(2, 3):
         for j in range(1, 30):
             for p in {.05, .005}:
                 for n in {200, 2000}:
-                    # read in the adjacency matrix
-                    truecg = create_amat("/Users/Oliviahess/Documents/Programs/Independent Study/CG-Testing")
-                    datatruecg = create_amat("/Users/Oliviahess/Documents/Programs/Independent Study/CG-Testing")
-                    patterntruecg = create_amat("/Users/Oliviahess/Documents/Programs/Independent Study/CG-Testing")
-                    # find covariance of dataset
+                    # read in the adjacency matrix cg_", i,"_50/cg50_", i,"_", j, "_data_", n,".csv
+                    truecg = create_amat("/Users/Oliviahess/Documents/Programs/Independent Study/CG-Testing/cg_" + str(i) + "_50/cg50_" + str(i) + "_" + str(j) + ".csv")
+                    datatruecg = create_amat("/Users/Oliviahess/Documents/Programs/Independent Study/CG-Testing/cg_" + str(i) + "_50/cg50_" + str(i) + "_" + str(j) + "_data_" + str(n) + ".csv")
+                    patterntruecg = create_amat("/Users/Oliviahess/Documents/Programs/Independent Study/CG-Testing/cg_" + str(i) + "_50/cg50_" + str(i) + "_" + str(j) + ".csv")
+                    # find covariance of dataset to send into learning function
                     cov = create_cov(datatruecg)
+                    # learn the pattern and then compare the pattern, getting the metrics back
                     metrics = learn(truecg, cov, n, p)
-                    # add metrics to the adjacency matrix
-                    amat = add_metrics_to_adj(metrics, amat)
-                    # write the new adjacency matrix to a csv
+                    # declare name of cg
+                    name = ''
+                    # add metrics to dataframe
+                    pLearnedMetrics.loc[len(pLearnedMetrics)] = {'name' : name, 'pval' : p, 'samplesize' : n, 'degree' : i, 'TPR' : metrics['tpr'], 'TDR' : metrics['tdr'], 'FPR' : metrics['fpr'], 'ACC' : metrics['acc'], 'SHD' : metrics['shd']}
 
-    np.savetxt("python_learned_metrics.csv", amat, delimiter=",")
+    pLearnedMetrics.to_csv("python_pc_original_learned_metrics.csv", index=False)
 
