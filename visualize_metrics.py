@@ -262,11 +262,13 @@ if __name__ == '__main__':
     #     plt.show()
     ### both R and python metrics ####
     for metric in ['TPR', 'TDR', 'FPR', 'ACC', 'SHD']:
+        data1 = [pval05200lcd[metric], pval052000lcd[metric], pval05200stable[metric], pval052000stable[metric],  pval05200original[metric], pval052000original[metric], pval05200pythonstable[metric], pval052000pythonstable[metric], pval05200pythonoriginal[metric], pval052000pythonoriginal[metric]]
+        data2 = [pval005200lcd[metric], pval0052000lcd[metric], pval005200stable[metric], pval0052000stable[metric],  pval005200original[metric], pval0052000original[metric], pval005200pythonstable[metric], pval0052000pythonstable[metric], pval005200pythonoriginal[metric], pval0052000pythonoriginal[metric]]
         fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(20, 8))
         positions = [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5]  # Adjust these positions as needed to control spacing
-        bplot1 = ax1.boxplot([pval05200lcd[metric], pval052000lcd[metric], pval05200stable[metric], pval052000stable[metric],  pval05200original[metric],pval052000original[metric], pval05200pythonstable[metric], pval052000pythonstable[metric], pval05200pythonoriginal[metric],pval052000pythonoriginal[metric]], vert = True, positions=positions , patch_artist=True,labels=['LCD', '', 'OPC', '', 'SPC', '', 'pStable', '', 'pOriginal', ''])
+        bplot1 = ax1.boxplot([pval05200lcd[metric], pval052000lcd[metric], pval05200stable[metric], pval052000stable[metric],  pval05200original[metric],pval052000original[metric], pval05200pythonstable[metric], pval052000pythonstable[metric], pval05200pythonoriginal[metric],pval052000pythonoriginal[metric]], vert = True, positions=positions , patch_artist=True,labels=['LCD', '', 'OPC', '', 'SPC', '', 'pStable', '', 'pOriginal', ''], zorder=10)
         ax1.set_title('alpha = 0.05')
-        bplot2 = ax2.boxplot([pval005200lcd[metric], pval0052000lcd[metric], pval005200stable[metric], pval0052000stable[metric],  pval005200original[metric],pval0052000original[metric], pval005200pythonstable[metric], pval0052000pythonstable[metric], pval005200pythonoriginal[metric], pval0052000pythonoriginal[metric]], vert = True, positions=positions, patch_artist=True,labels=['LCD', '', 'OPC', '', 'SPC', '', 'pStable', '', 'pOriginal', ''])
+        bplot2 = ax2.boxplot([pval005200lcd[metric], pval0052000lcd[metric], pval005200stable[metric], pval0052000stable[metric],  pval005200original[metric],pval0052000original[metric], pval005200pythonstable[metric], pval0052000pythonstable[metric], pval005200pythonoriginal[metric], pval0052000pythonoriginal[metric]], vert = True, positions=positions, patch_artist=True,labels=['LCD', '', 'OPC', '', 'SPC', '', 'pStable', '', 'pOriginal', ''], zorder=10)
         ax2.set_title('alpha = 0.005')
         if metric == 'TPR':
             ax1.set_ylabel(metric + ' (Precision)')
@@ -280,11 +282,13 @@ if __name__ == '__main__':
         for bplot in (bplot1, bplot2):
             for patch, color in zip(bplot['boxes'], colors):
                 patch.set_facecolor(color)
-        ymin, ymax = plt.ylim()  # Get the current y-axis limits
-        lines = np.arange(ymin, ymax, 0.1)  # Create an array of points from ymin to ymax at intervals of 0.1
-        for y in lines:
-            ax1.axhline(y, color='lightgray', linestyle='-', linewidth=0.5)  # Draw light line on ax1
-            ax2.axhline(y, color='lightgray', linestyle='-', linewidth=0.5)  # Draw light line on ax2
+                
+        # Draw horizontal lines unique to each subplot's data
+        for ax, data in zip([ax1, ax2], [data1, data2]):
+            ymin, ymax = min(np.concatenate(data)), max(np.concatenate(data))
+            lines = np.arange(ymin, ymax, (ymax - ymin) / 10)  # Example granularity
+            for y in lines:
+                ax.axhline(y, color='lightgray', linestyle='-', linewidth=0.4, zorder=0)
         # add a legend for the sample sizes
         fig.legend([bplot1["boxes"][0], bplot1["boxes"][1]], ["200 Samples", "2000 Samples"], loc='upper center')
         plt.subplots_adjust(hspace=0.7)
