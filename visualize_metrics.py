@@ -199,9 +199,9 @@ if __name__ == '__main__':
     for metric in ['TPR', 'TDR', 'FPR', 'ACC', 'SHD']:
         fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(20, 8))
         positions = [1, 1.5]  # Adjust these positions as needed to control spacing
-        bplot1 = ax1.boxplot([pval05200pythonstable[metric], pval052000pythonstable[metric]], vert = True, positions=positions , patch_artist=True,labels=['pOriginal', 'p'])
+        bplot1 = ax1.boxplot([pval05200pythonstable[metric], pval052000pythonstable[metric]], vert = True, positions=positions , patch_artist=True,labels=['pStable', 'p'])
         ax1.set_title('alpha = 0.05')
-        bplot2 = ax2.boxplot([pval005200pythonstable[metric], pval0052000pythonstable[metric]], vert = True, positions=positions, patch_artist=True,labels=['pOriginal', 'p'])
+        bplot2 = ax2.boxplot([pval005200pythonstable[metric], pval0052000pythonstable[metric]], vert = True, positions=positions, patch_artist=True,labels=['pStable', 'p'])
         ax2.set_title('alpha = 0.005')
         if metric == 'TPR':
             ax1.set_ylabel(metric + ' (Precision)')
