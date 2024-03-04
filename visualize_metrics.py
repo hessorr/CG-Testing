@@ -172,7 +172,7 @@ if __name__ == '__main__':
     lcd_metrics = read_csv("/Users/Oliviahess/Documents/Programs/Independent Study/CG-Testing/Metrics/r_lcd_learned_cg_metrics.csv")
     cglearn_stable_metrics = read_csv("/Users/Oliviahess/Documents/Programs/Independent Study/CG-Testing/Metrics/r_pc_learned_stable_cg_metrics.csv")
     cglearn_original_metrics = read_csv("/Users/Oliviahess/Documents/Programs/Independent Study/CG-Testing/Metrics/r_pc_learned_original_cg_metrics.csv")
-    python_original_metrics = read_csv("/Users/Oliviahess/Documents/Programs/Independent Study/CG-Testing/Metrics/python_pc_original_learned_metrics.csv")
+    python_stable_metrics = read_csv("/Users/Oliviahess/Documents/Programs/Independent Study/CG-Testing/Metrics/python_pc_stable_learned_metrics.csv")
     # ten_plots(lcd_metrics, cglearn_stable_metrics, cglearn_original_metrics)
     # six_plots(lcd_metrics, cglearn_stable_metrics, cglearn_original_metrics)
     # four_plots(lcd_metrics, cglearn_stable_metrics, cglearn_original_metrics)
@@ -183,8 +183,8 @@ if __name__ == '__main__':
     pval052000stable = cglearn_stable_metrics[(cglearn_stable_metrics['pval'] == 0.05) & (cglearn_stable_metrics['degree'] == 2) & (cglearn_stable_metrics['samplesize'] == 2000)]
     pval05200original = cglearn_original_metrics[(cglearn_original_metrics['pval'] == 0.05) & (cglearn_original_metrics['degree'] == 2) & (cglearn_original_metrics['samplesize'] == 200)]
     pval052000original = cglearn_original_metrics[(cglearn_original_metrics['pval'] == 0.05) & (cglearn_original_metrics['degree'] == 2) &  (cglearn_original_metrics['samplesize'] == 2000)]
-    pval05200pythonoriginal = python_original_metrics[(python_original_metrics['pval'] == 0.05) & (python_original_metrics['degree'] == 2) & (python_original_metrics['samplesize'] == 200)]
-    pval052000pythonoriginal = python_original_metrics[(python_original_metrics['pval'] == 0.05) & (python_original_metrics['degree'] == 2) &  (python_original_metrics['samplesize'] == 2000)]
+    pval05200pythonstable = python_stable_metrics[(python_stable_metrics['pval'] == 0.05) & (python_stable_metrics['degree'] == 2) & (python_stable_metrics['samplesize'] == 200)]
+    pval052000pythonstable = python_stable_metrics[(python_stable_metrics['pval'] == 0.05) & (python_stable_metrics['degree'] == 2) &  (python_stable_metrics['samplesize'] == 2000)]
     #### pval == 0.005
     pval005200lcd = lcd_metrics[(lcd_metrics['pval'] == 0.005) & (lcd_metrics['degree'] == 2) & (lcd_metrics['samplesize'] == 200)]
     pval0052000lcd = lcd_metrics[(lcd_metrics['pval'] == 0.005) & (lcd_metrics['degree'] == 2) & (lcd_metrics['samplesize'] == 2000)]
@@ -192,16 +192,16 @@ if __name__ == '__main__':
     pval0052000stable = cglearn_stable_metrics[(cglearn_stable_metrics['pval'] == 0.005) & (cglearn_stable_metrics['degree'] == 2) & (cglearn_stable_metrics['samplesize'] == 2000)]
     pval005200original = cglearn_original_metrics[(cglearn_original_metrics['pval'] == 0.005) & (cglearn_original_metrics['degree'] == 2) & (cglearn_original_metrics['samplesize'] == 200)]
     pval0052000original = cglearn_original_metrics[(cglearn_original_metrics['pval'] == 0.005) & (cglearn_original_metrics['degree'] == 2) & (cglearn_original_metrics['samplesize'] == 2000)]
-    pval005200pythonoriginal = python_original_metrics[(python_original_metrics['pval'] == 0.005) & (python_original_metrics['degree'] == 2) & (python_original_metrics['samplesize'] == 200)]
-    pval0052000pythonoriginal = python_original_metrics[(python_original_metrics['pval'] == 0.005) & (python_original_metrics['degree'] == 2) & (python_original_metrics['samplesize'] == 2000)]
+    pval005200pythonstable = python_stable_metrics[(python_stable_metrics['pval'] == 0.005) & (python_stable_metrics['degree'] == 2) & (python_stable_metrics['samplesize'] == 200)]
+    pval0052000pythonstable = python_stable_metrics[(python_stable_metrics['pval'] == 0.005) & (python_stable_metrics['degree'] == 2) & (python_stable_metrics['samplesize'] == 2000)]
 
     
     for metric in ['TPR', 'TDR', 'FPR', 'ACC', 'SHD']:
         fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(20, 8))
         positions = [1, 1.5]  # Adjust these positions as needed to control spacing
-        bplot1 = ax1.boxplot([pval05200pythonoriginal[metric], pval052000pythonoriginal[metric]], vert = True, positions=positions , patch_artist=True,labels=['pOriginal', 'p'])
+        bplot1 = ax1.boxplot([pval05200pythonstable[metric], pval052000pythonstable[metric]], vert = True, positions=positions , patch_artist=True,labels=['pOriginal', 'p'])
         ax1.set_title('alpha = 0.05')
-        bplot2 = ax2.boxplot([pval005200pythonoriginal[metric], pval0052000pythonoriginal[metric]], vert = True, positions=positions, patch_artist=True,labels=['pOriginal', 'p'])
+        bplot2 = ax2.boxplot([pval005200pythonstable[metric], pval0052000pythonstable[metric]], vert = True, positions=positions, patch_artist=True,labels=['pOriginal', 'p'])
         ax2.set_title('alpha = 0.005')
         if metric == 'TPR':
             ax1.set_ylabel(metric + ' (Precision)')
