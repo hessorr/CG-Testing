@@ -47,8 +47,12 @@ for (i in 2:3) {
         pythonLearnedCGO <- as.matrix(pythonO_df)
         
         # change the cgs column names to match the data's column names, and insert rownames so it plays nice with tg.pat format
-        colnames(cgpat) <- as.character(1:50)
-        rownames(cgpat) <- as.character(1:50)
+        colnames(truecgpat) <- as.character(1:50)
+        rownames(truecgpat) <- as.character(1:50)
+        colnames(pythonLearnedCGS) <- as.character(1:50)
+        rownames(pythonLearnedCGS) <- as.character(1:50)
+        colnames(pythonLearnedCGO) <- as.character(1:50)
+        rownames(pythonLearnedCGO) <- as.character(1:50)
         
         # get the metrics for the performance of the learned cg
         scoresS <- comp.cgs1(truecgpat, pythonLearnedCGS)
@@ -65,4 +69,4 @@ for (i in 2:3) {
 # after each cg has been learned and the metrics are calculated, save the results into a csv
 write.csv(rLearnedScoresStable,file="C:/Users/hessor/Documents/pcgaussiantesting/CG-Testing/Metrics/python_pc_learned_stable_cg_metrics_testing_rcomp_pat01.csv",row.names=FALSE)
 
-write.csv(rLearnedScoresOriginal,file="C:/Users/hessor/Documents/pcgaussiantesting/CG-Testing/Metrics/python_pc_learned_original_cg_metrics_testing_rcomp_pat01.csv",row.names=FALSE)
+write.csv(rLearnedScoresOriginal,file="C:/Users/hessor/Documents/pcgaussiantesting/CG-Testing/Metrics/python_pc_learned_original_cg_metrics_testing_rcomp_pat02.csv",row.names=FALSE)
