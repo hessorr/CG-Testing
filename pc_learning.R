@@ -30,7 +30,7 @@ for (i in 2:3) {
         tgdata <- as.matrix(data_df)
         cgpat <- as.matrix(pattern_df)
         
-        tg.pat <- learn.lwf.norm1(tgdata,p,method ="original",LCG=FALSE)
+        tg.pat <- learn.lwf.norm1(tgdata,p,method ="stable",LCG=FALSE)
         # set the name of the cg
         name <- paste0("cg50_", i,"_", j)
         # change the cgs column names to match the data's column names, and insert rownames so it plays nice with tg.pat format
@@ -38,12 +38,17 @@ for (i in 2:3) {
         rownames(cgpat) <- as.character(1:50)
         # get the metrics for the performance of the learned cg
         scores <- comp.cgs1(cgpat, tg.pat)
+        filename<-paste0("C:/Users/hessor/Documents/pcgaussiantesting/CG-Testing/Learned/cg50_", i,"_", j, "_learned_", n,".csv")
+        # save the learned cg 
+        write.csv(tg.pat, file=filename,row.names=FALSE)
+        
         # add the metrics to the scores data frame
         rLearnedScores[nrow(rLearnedScores) + 1,] = c(name, p, n, i, scores['TPR'], scores['TDR'], scores['FPR'],scores['ACC'], scores['SHD'])
+        
       }
     }
   }
 }
 
 # after each cg has been learned and the metrics are calculated, save the results into a csv
-write.csv(rLearnedScores,file="C:/Users/hessor/Documents/pcgaussiantesting/CG-Testing/Metrics/r_pc_learned_original_cg_metrics.csv",row.names=FALSE)
+write.csv(rLearnedScores,file="C:/Users/hessor/Documents/pcgaussiantesting/CG-Testing/Metrics/r_pc_learned_original_cg_metrics_testing_comp_pat.csv",row.names=FALSE)
