@@ -51,4 +51,4 @@ for (i in 2:3) {
 }
 
 # after each cg has been learned and the metrics are calculated, save the results into a csv
-write.csv(rLearnedScores,file="C:/Users/hessor/Documents/pcgaussiantesting/CG-Testing/Metrics/r_pc_learned_original_cg_metrics_testing_comp_pat.csv",row.names=FALSE)
+write.csv(rLearnedScores,file="C:/Users/hessor/Documents/pcgaussiantesting/CG-Testing/Metrics/r_pc_learned_stable_cg_metrics_testing_comp_pat.csv",row.names=FALSE)

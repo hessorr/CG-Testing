@@ -174,6 +174,8 @@ if __name__ == '__main__':
     cglearn_original_metrics = read_csv("/Users/Oliviahess/Documents/Programs/Independent Study/CG-Testing/Metrics/r_pc_learned_original_cg_metrics.csv")
     python_stable_metrics = read_csv("/Users/Oliviahess/Documents/Programs/Independent Study/CG-Testing/Metrics/python_pc_stable_learned_metrics.csv")
     python_original_metrics = read_csv("/Users/Oliviahess/Documents/Programs/Independent Study/CG-Testing/Metrics/python_pc_original_learned_metrics.csv")
+    python_testing = read_csv("/Users/Oliviahess/Documents/Programs/Independent Study/CG-Testing/Metrics/python_pc_learned_stable_cg_metrics_testing_comp_pat02.csv")
+    r_testing = read_csv("/Users/Oliviahess/Documents/Programs/Independent Study/CG-Testing/Metrics/r_pc_learned_stable_cg_metrics_testing_comp_pat.csv")
     # ten_plots(lcd_metrics, cglearn_stable_metrics, cglearn_original_metrics)
     # six_plots(lcd_metrics, cglearn_stable_metrics, cglearn_original_metrics)
     # four_plots(lcd_metrics, cglearn_stable_metrics, cglearn_original_metrics)
@@ -188,6 +190,11 @@ if __name__ == '__main__':
     pval052000pythonstable = python_stable_metrics[(python_stable_metrics['pval'] == 0.05) & (python_stable_metrics['degree'] == 2) &  (python_stable_metrics['samplesize'] == 2000)]
     pval05200pythonoriginal = python_original_metrics[(python_original_metrics['pval'] == 0.05) & (python_original_metrics['degree'] == 2) & (python_original_metrics['samplesize'] == 200)]
     pval052000pythonoriginal = python_original_metrics[(python_original_metrics['pval'] == 0.05) & (python_original_metrics['degree'] == 2) &  (python_original_metrics['samplesize'] == 2000)]
+    pythontesting05200 = python_testing[(python_testing['pval'] == 0.05) & (python_testing['degree'] == 2) & (python_testing['samplesize'] == 200)]
+    pythontesting052000 = python_testing[(python_testing['pval'] == 0.05) & (python_testing['degree'] == 2) & (python_testing['samplesize'] == 2000)]
+    rtesting05200 = r_testing[(r_testing['pval'] == 0.05) & (r_testing['degree'] == 2) & (r_testing['samplesize'] == 200)]
+    rtesting052000 = r_testing[(r_testing['pval'] == 0.05) & (r_testing['degree'] == 2) & (r_testing['samplesize'] == 2000)]
+    
     #### pval == 0.005
     pval005200lcd = lcd_metrics[(lcd_metrics['pval'] == 0.005) & (lcd_metrics['degree'] == 2) & (lcd_metrics['samplesize'] == 200)]
     pval0052000lcd = lcd_metrics[(lcd_metrics['pval'] == 0.005) & (lcd_metrics['degree'] == 2) & (lcd_metrics['samplesize'] == 2000)]
@@ -199,7 +206,10 @@ if __name__ == '__main__':
     pval0052000pythonstable = python_stable_metrics[(python_stable_metrics['pval'] == 0.005) & (python_stable_metrics['degree'] == 2) & (python_stable_metrics['samplesize'] == 2000)]
     pval005200pythonoriginal = python_original_metrics[(python_original_metrics['pval'] == 0.005) & (python_original_metrics['degree'] == 2) & (python_original_metrics['samplesize'] == 200)]
     pval0052000pythonoriginal = python_original_metrics[(python_original_metrics['pval'] == 0.005) & (python_original_metrics['degree'] == 2) & (python_original_metrics['samplesize'] == 2000)]
-    
+    pythontesting005200 = python_testing[(python_testing['pval'] == 0.005) & (python_testing['degree'] == 2) & (python_testing['samplesize'] == 200)]
+    pythontesting0052000 = python_testing[(python_testing['pval'] == 0.005) & (python_testing['degree'] == 2) & (python_testing['samplesize'] == 2000)]
+    rtesting005200 = r_testing[(r_testing['pval'] == 0.005) & (r_testing['degree'] == 2) & (r_testing['samplesize'] == 200)]
+    rtesting052000 = r_testing[(r_testing['pval'] == 0.005) & (r_testing['degree'] == 2) & (r_testing['samplesize'] == 2000)]
 
     ### just the python metrics ####
     # for metric in ['TPR', 'TDR', 'FPR', 'ACC', 'SHD']:
@@ -261,14 +271,47 @@ if __name__ == '__main__':
     #     plt.subplots_adjust(hspace=0.7)
     #     plt.show()
     ### both R and python metrics ####
+    # for metric in ['TPR', 'TDR', 'FPR', 'ACC', 'SHD']:
+    #     data1 = [pval05200lcd[metric], pval052000lcd[metric], pval05200stable[metric], pval052000stable[metric],  pval05200original[metric], pval052000original[metric], pval05200pythonstable[metric], pval052000pythonstable[metric], pval05200pythonoriginal[metric], pval052000pythonoriginal[metric]]
+    #     data2 = [pval005200lcd[metric], pval0052000lcd[metric], pval005200stable[metric], pval0052000stable[metric],  pval005200original[metric], pval0052000original[metric], pval005200pythonstable[metric], pval0052000pythonstable[metric], pval005200pythonoriginal[metric], pval0052000pythonoriginal[metric]]
+    #     fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(20, 8))
+    #     positions = [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5]  # Adjust these positions as needed to control spacing
+    #     bplot1 = ax1.boxplot([pval05200lcd[metric], pval052000lcd[metric], pval05200stable[metric], pval052000stable[metric],  pval05200original[metric],pval052000original[metric], pval05200pythonstable[metric], pval052000pythonstable[metric], pval05200pythonoriginal[metric],pval052000pythonoriginal[metric]], vert = True, positions=positions , patch_artist=True,labels=['LCD', '', 'OPC', '', 'SPC', '', 'pStable', '', 'pOriginal', ''], zorder=10)
+    #     ax1.set_title('alpha = 0.05')
+    #     bplot2 = ax2.boxplot([pval005200lcd[metric], pval0052000lcd[metric], pval005200stable[metric], pval0052000stable[metric],  pval005200original[metric],pval0052000original[metric], pval005200pythonstable[metric], pval0052000pythonstable[metric], pval005200pythonoriginal[metric], pval0052000pythonoriginal[metric]], vert = True, positions=positions, patch_artist=True,labels=['LCD', '', 'OPC', '', 'SPC', '', 'pStable', '', 'pOriginal', ''], zorder=10)
+    #     ax2.set_title('alpha = 0.005')
+    #     if metric == 'TPR':
+    #         ax1.set_ylabel(metric + ' (Precision)')
+    #     elif metric == 'TDR':
+    #         ax1.set_ylabel(metric + ' (Recall)')
+    #     else:
+    #         ax1.set_ylabel(metric)
+
+    #     # fill with colors
+    #     colors = ['pink', 'lightblue','pink', 'lightblue','pink', 'lightblue', 'pink', 'lightblue','pink', 'lightblue']
+    #     for bplot in (bplot1, bplot2):
+    #         for patch, color in zip(bplot['boxes'], colors):
+    #             patch.set_facecolor(color)
+                
+    #     # Draw horizontal lines unique to each subplot's data
+    #     for ax, data in zip([ax1, ax2], [data1, data2]):
+    #         ymin, ymax = min(np.concatenate(data)), max(np.concatenate(data))
+    #         lines = np.arange(ymin, ymax, (ymax - ymin) / 10)  # Example granularity
+    #         for y in lines:
+    #             ax.axhline(y, color='lightgray', linestyle='-', linewidth=0.4, zorder=0)
+    #     # add a legend for the sample sizes
+    #     fig.legend([bplot1["boxes"][0], bplot1["boxes"][1]], ["200 Samples", "2000 Samples"], loc='upper center')
+    #     plt.subplots_adjust(hspace=0.7)
+    #     plt.show()
+
     for metric in ['TPR', 'TDR', 'FPR', 'ACC', 'SHD']:
-        data1 = [pval05200lcd[metric], pval052000lcd[metric], pval05200stable[metric], pval052000stable[metric],  pval05200original[metric], pval052000original[metric], pval05200pythonstable[metric], pval052000pythonstable[metric], pval05200pythonoriginal[metric], pval052000pythonoriginal[metric]]
-        data2 = [pval005200lcd[metric], pval0052000lcd[metric], pval005200stable[metric], pval0052000stable[metric],  pval005200original[metric], pval0052000original[metric], pval005200pythonstable[metric], pval0052000pythonstable[metric], pval005200pythonoriginal[metric], pval0052000pythonoriginal[metric]]
+        data1 = [pythontesting05200[metric], pythontesting052000[metric], rtesting05200[metric], rtesting052000[metric]]
+        data2 = [pythontesting005200[metric], pythontesting0052000[metric], rtesting005200[metric], rtesting005200[metric]]
         fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(20, 8))
-        positions = [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5]  # Adjust these positions as needed to control spacing
-        bplot1 = ax1.boxplot([pval05200lcd[metric], pval052000lcd[metric], pval05200stable[metric], pval052000stable[metric],  pval05200original[metric],pval052000original[metric], pval05200pythonstable[metric], pval052000pythonstable[metric], pval05200pythonoriginal[metric],pval052000pythonoriginal[metric]], vert = True, positions=positions , patch_artist=True,labels=['LCD', '', 'OPC', '', 'SPC', '', 'pStable', '', 'pOriginal', ''], zorder=10)
+        positions = [1, 1.5, 2, 2.5]  # Adjust these positions as needed to control spacing
+        bplot1 = ax1.boxplot([pythontesting05200[metric], pythontesting052000[metric], rtesting05200[metric], rtesting052000[metric]], vert = True, positions=positions , patch_artist=True,labels=['pTest', '', 'rtest', ''], zorder=10)
         ax1.set_title('alpha = 0.05')
-        bplot2 = ax2.boxplot([pval005200lcd[metric], pval0052000lcd[metric], pval005200stable[metric], pval0052000stable[metric],  pval005200original[metric],pval0052000original[metric], pval005200pythonstable[metric], pval0052000pythonstable[metric], pval005200pythonoriginal[metric], pval0052000pythonoriginal[metric]], vert = True, positions=positions, patch_artist=True,labels=['LCD', '', 'OPC', '', 'SPC', '', 'pStable', '', 'pOriginal', ''], zorder=10)
+        bplot2 = ax2.boxplot([pythontesting05200[metric], pythontesting052000[metric], rtesting05200[metric], rtesting052000[metric]], vert = True, positions=positions, patch_artist=True,labels=['pTest', '', 'rtest', ''], zorder=10)
         ax2.set_title('alpha = 0.005')
         if metric == 'TPR':
             ax1.set_ylabel(metric + ' (Precision)')
