@@ -174,8 +174,10 @@ if __name__ == '__main__':
     cglearn_original_metrics = read_csv("/Users/Oliviahess/Documents/Programs/Independent Study/CG-Testing/Metrics/r_pc_learned_original_cg_metrics.csv")
     python_stable_metrics = read_csv("/Users/Oliviahess/Documents/Programs/Independent Study/CG-Testing/Metrics/python_pc_stable_learned_metrics.csv")
     python_original_metrics = read_csv("/Users/Oliviahess/Documents/Programs/Independent Study/CG-Testing/Metrics/python_pc_original_learned_metrics.csv")
-    python_testing = read_csv("/Users/Oliviahess/Documents/Programs/Independent Study/CG-Testing/Metrics/python_pc_learned_stable_cg_metrics_testing_comp_pat02.csv")
-    r_testing = read_csv("/Users/Oliviahess/Documents/Programs/Independent Study/CG-Testing/Metrics/r_pc_learned_stable_cg_metrics_testing_comp_pat.csv")
+    python_stable_testing = read_csv("/Users/Oliviahess/Documents/Programs/Independent Study/CG-Testing/Metrics/python_pc_learned_stable_cg_metrics_testing_comp_pat104.csv")
+    python_original_testing = read_csv("/Users/Oliviahess/Documents/Programs/Independent Study/CG-Testing/Metrics/python_pc_learned_original_cg_metrics_testing_comp_pat104.csv")
+    r_stable_testing = read_csv("/Users/Oliviahess/Documents/Programs/Independent Study/CG-Testing/Metrics/python_pc_learned_stable_cg_metrics_testing_rcomp_pat02.csv")
+    r_original_testing = read_csv("/Users/Oliviahess/Documents/Programs/Independent Study/CG-Testing/Metrics/python_pc_learned_original_cg_metrics_testing_rcomp_pat02.csv")
     # ten_plots(lcd_metrics, cglearn_stable_metrics, cglearn_original_metrics)
     # six_plots(lcd_metrics, cglearn_stable_metrics, cglearn_original_metrics)
     # four_plots(lcd_metrics, cglearn_stable_metrics, cglearn_original_metrics)
@@ -190,10 +192,18 @@ if __name__ == '__main__':
     pval052000pythonstable = python_stable_metrics[(python_stable_metrics['pval'] == 0.05) & (python_stable_metrics['degree'] == 2) &  (python_stable_metrics['samplesize'] == 2000)]
     pval05200pythonoriginal = python_original_metrics[(python_original_metrics['pval'] == 0.05) & (python_original_metrics['degree'] == 2) & (python_original_metrics['samplesize'] == 200)]
     pval052000pythonoriginal = python_original_metrics[(python_original_metrics['pval'] == 0.05) & (python_original_metrics['degree'] == 2) &  (python_original_metrics['samplesize'] == 2000)]
-    pythontesting05200 = python_testing[(python_testing['pval'] == 0.05) & (python_testing['degree'] == 2) & (python_testing['samplesize'] == 200)]
-    pythontesting052000 = python_testing[(python_testing['pval'] == 0.05) & (python_testing['degree'] == 2) & (python_testing['samplesize'] == 2000)]
-    rtesting05200 = r_testing[(r_testing['pval'] == 0.05) & (r_testing['degree'] == 2) & (r_testing['samplesize'] == 200)]
-    rtesting052000 = r_testing[(r_testing['pval'] == 0.05) & (r_testing['degree'] == 2) & (r_testing['samplesize'] == 2000)]
+    python05200StableTest = python_stable_testing[(python_stable_testing['pval'] == 0.05) & (python_stable_testing['degree'] == 2) & (python_stable_testing['samplesize'] == 200)]
+    python052000StableTest = python_stable_testing[(python_stable_testing['pval'] == 0.05) & (python_stable_testing['degree'] == 2) & (python_stable_testing['samplesize'] == 2000)]
+    python05200OriginalTest = python_original_testing[(python_original_testing['pval'] == 0.05) & (python_original_testing['degree'] == 2) & (python_original_testing['samplesize'] == 200)]
+    python052000OriginalTest = python_original_testing[(python_original_testing['pval'] == 0.05) & (python_original_testing['degree'] == 2) & (python_original_testing['samplesize'] == 2000)]
+    r05200StableTest = r_stable_testing[(r_stable_testing['pval'] == 0.05) & (r_stable_testing['degree'] == 2) & (r_stable_testing['samplesize'] == 200)]
+    r052000StableTest = r_stable_testing[(r_stable_testing['pval'] == 0.05) & (r_stable_testing['degree'] == 2) & (r_stable_testing['samplesize'] == 2000)]
+    r05200OriginalTest = r_original_testing[(r_original_testing['pval'] == 0.05) & (r_original_testing['degree'] == 2) & (r_original_testing['samplesize'] == 200)]
+    r052000OriginalTest = r_original_testing[(r_original_testing['pval'] == 0.05) & (r_original_testing['degree'] == 2) & (r_original_testing['samplesize'] == 2000)]
+    # pythontesting05200 = python_testing[(python_testing['pval'] == 0.05) & (python_testing['degree'] == 2) & (python_testing['samplesize'] == 200)]
+    # pythontesting052000 = python_testing[(python_testing['pval'] == 0.05) & (python_testing['degree'] == 2) & (python_testing['samplesize'] == 2000)]
+    # rtesting05200 = r_testing[(r_testing['pval'] == 0.05) & (r_testing['degree'] == 2) & (r_testing['samplesize'] == 200)]
+    # rtesting052000 = r_testing[(r_testing['pval'] == 0.05) & (r_testing['degree'] == 2) & (r_testing['samplesize'] == 2000)]
     
     #### pval == 0.005
     pval005200lcd = lcd_metrics[(lcd_metrics['pval'] == 0.005) & (lcd_metrics['degree'] == 2) & (lcd_metrics['samplesize'] == 200)]
@@ -206,10 +216,18 @@ if __name__ == '__main__':
     pval0052000pythonstable = python_stable_metrics[(python_stable_metrics['pval'] == 0.005) & (python_stable_metrics['degree'] == 2) & (python_stable_metrics['samplesize'] == 2000)]
     pval005200pythonoriginal = python_original_metrics[(python_original_metrics['pval'] == 0.005) & (python_original_metrics['degree'] == 2) & (python_original_metrics['samplesize'] == 200)]
     pval0052000pythonoriginal = python_original_metrics[(python_original_metrics['pval'] == 0.005) & (python_original_metrics['degree'] == 2) & (python_original_metrics['samplesize'] == 2000)]
-    pythontesting005200 = python_testing[(python_testing['pval'] == 0.005) & (python_testing['degree'] == 2) & (python_testing['samplesize'] == 200)]
-    pythontesting0052000 = python_testing[(python_testing['pval'] == 0.005) & (python_testing['degree'] == 2) & (python_testing['samplesize'] == 2000)]
-    rtesting005200 = r_testing[(r_testing['pval'] == 0.005) & (r_testing['degree'] == 2) & (r_testing['samplesize'] == 200)]
-    rtesting052000 = r_testing[(r_testing['pval'] == 0.005) & (r_testing['degree'] == 2) & (r_testing['samplesize'] == 2000)]
+    python005200StableTest = python_stable_testing[(python_stable_testing['pval'] == 0.005) & (python_stable_testing['degree'] == 2) & (python_stable_testing['samplesize'] == 200)]
+    python0052000StableTest = python_stable_testing[(python_stable_testing['pval'] == 0.005) & (python_stable_testing['degree'] == 2) & (python_stable_testing['samplesize'] == 2000)]
+    python005200OriginalTest = python_original_testing[(python_original_testing['pval'] == 0.005) & (python_original_testing['degree'] == 2) & (python_original_testing['samplesize'] == 200)]
+    python0052000OriginalTest = python_original_testing[(python_original_testing['pval'] == 0.005) & (python_original_testing['degree'] == 2) & (python_original_testing['samplesize'] == 2000)]
+    r005200StableTest = r_stable_testing[(r_stable_testing['pval'] == 0.005) & (r_stable_testing['degree'] == 2) & (r_stable_testing['samplesize'] == 200)]
+    r0052000StableTest = r_stable_testing[(r_stable_testing['pval'] == 0.005) & (r_stable_testing['degree'] == 2) & (r_stable_testing['samplesize'] == 2000)]
+    r005200OriginalTest = r_original_testing[(r_original_testing['pval'] == 0.005) & (r_original_testing['degree'] == 2) & (r_original_testing['samplesize'] == 200)]
+    r0052000OriginalTest = r_original_testing[(r_original_testing['pval'] == 0.005) & (r_original_testing['degree'] == 2) & (r_original_testing['samplesize'] == 2000)]
+    # pythontesting005200 = python_testing[(python_testing['pval'] == 0.005) & (python_testing['degree'] == 2) & (python_testing['samplesize'] == 200)]
+    # pythontesting0052000 = python_testing[(python_testing['pval'] == 0.005) & (python_testing['degree'] == 2) & (python_testing['samplesize'] == 2000)]
+    # rtesting005200 = r_testing[(r_testing['pval'] == 0.005) & (r_testing['degree'] == 2) & (r_testing['samplesize'] == 200)]
+    # rtesting052000 = r_testing[(r_testing['pval'] == 0.005) & (r_testing['degree'] == 2) & (r_testing['samplesize'] == 2000)]
 
     ### just the python metrics ####
     # for metric in ['TPR', 'TDR', 'FPR', 'ACC', 'SHD']:
@@ -305,13 +323,13 @@ if __name__ == '__main__':
     #     plt.show()
 
     for metric in ['TPR', 'TDR', 'FPR', 'ACC', 'SHD']:
-        data1 = [pythontesting05200[metric], pythontesting052000[metric], rtesting05200[metric], rtesting052000[metric]]
-        data2 = [pythontesting005200[metric], pythontesting0052000[metric], rtesting005200[metric], rtesting005200[metric]]
+        data1 = [python05200StableTest[metric], python052000StableTest[metric], python05200OriginalTest[metric], python052000OriginalTest[metric], r052000StableTest[metric], r052000OriginalTest[metric]]
+        data2 = [python005200StableTest[metric], python0052000StableTest[metric], python005200OriginalTest[metric], python0052000OriginalTest[metric], r0052000StableTest[metric], r0052000OriginalTest[metric]]
         fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(20, 8))
-        positions = [1, 1.5, 2, 2.5]  # Adjust these positions as needed to control spacing
-        bplot1 = ax1.boxplot([pythontesting05200[metric], pythontesting052000[metric], rtesting05200[metric], rtesting052000[metric]], vert = True, positions=positions , patch_artist=True,labels=['pTest', '', 'rtest', ''], zorder=10)
+        positions = [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5]  # Adjust these positions as needed to control spacing
+        bplot1 = ax1.boxplot([python05200StableTest[metric], python052000StableTest[metric], python05200OriginalTest[metric], python052000OriginalTest[metric], r05200StableTest[metric], r052000StableTest[metric], r05200OriginalTest[metric], r052000OriginalTest[metric]], vert = True, positions=positions , patch_artist=True,labels=['pSPC', '', 'pOPC', '', 'rSPC', '', 'rOPC', ''], zorder=10)
         ax1.set_title('alpha = 0.05')
-        bplot2 = ax2.boxplot([pythontesting05200[metric], pythontesting052000[metric], rtesting05200[metric], rtesting052000[metric]], vert = True, positions=positions, patch_artist=True,labels=['pTest', '', 'rtest', ''], zorder=10)
+        bplot2 = ax2.boxplot([python005200StableTest[metric], python0052000StableTest[metric], python005200OriginalTest[metric], python0052000OriginalTest[metric], r005200StableTest[metric], r0052000StableTest[metric], r005200OriginalTest[metric], r0052000OriginalTest[metric]], vert = True, positions=positions, patch_artist=True,labels=['pSPC', '', 'pOPC', '', 'rSPC', '', 'rOPC', ''], zorder=10)
         ax2.set_title('alpha = 0.005')
         if metric == 'TPR':
             ax1.set_ylabel(metric + ' (Precision)')
